@@ -1,5 +1,10 @@
 ---
 # handlers file for borgmatic
+- name: Validate borgmatic config
+  ansible.builtin.command:
+    cmd: /usr/local/bin/borgmatic -c /etc/borgmatic/config.yaml config validate
+  changed_when: false
+
 - name: Reload systemd daemon
   ansible.builtin.systemd:
     daemon_reload: true

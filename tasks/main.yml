@@ -47,6 +47,11 @@
     owner: root
     group: root
     mode: "0600"
+  notify: Validate borgmatic config
+  tags: config
+
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers
   tags: config
 
 - name: Render systemd service and timer
