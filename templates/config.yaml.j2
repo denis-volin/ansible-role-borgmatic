@@ -11,7 +11,7 @@ exclude_patterns:
 
 exclude_caches: {{ borgmatic_exclude_caches | bool }}
 
-encryption_passphrase: {{ borgmatic_encryption_passphrase }}
+encryption_passphrase: {{ borgmatic_encryption_passphrase | to_json }}
 
 keep_daily: {{ borgmatic_keep_daily }}
 keep_weekly: {{ borgmatic_keep_weekly }}
