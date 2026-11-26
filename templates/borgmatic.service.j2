@@ -21,14 +21,16 @@ ProtectHostname=yes
 ProtectKernelLogs=yes
 ProtectKernelModules=yes
 ProtectKernelTunables=yes
+ProtectSystem=full
 RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
 RestrictNamespaces=yes
 RestrictRealtime=yes
 RestrictSUIDSGID=yes
+RuntimeDirectory=borgmatic
+StateDirectory=borgmatic
 SystemCallArchitectures=native
-SystemCallFilter=@system-service
 SystemCallErrorNumber=EPERM
-ProtectSystem=full
+SystemCallFilter=@system-service
 
 # Lower CPU and I/O priority
 Nice=19
