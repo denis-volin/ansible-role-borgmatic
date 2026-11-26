@@ -8,7 +8,7 @@ After=network-online.target
 [Service]
 Type=oneshot
 User=root
-ExecStart=borgmatic -c /etc/borgmatic/config.yaml
+ExecStart=/usr/local/bin/borgmatic -c /etc/borgmatic/config.yaml
 
 # Security settings for systemd running as root
 LockPersonality=true
