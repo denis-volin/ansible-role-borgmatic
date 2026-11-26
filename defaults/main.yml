@@ -3,10 +3,8 @@
 
 borgmatic_borg_version: 1.4.5
 borgmatic_borg_url: https://github.com/borgbackup/borg/releases/download/{{ borgmatic_borg_version }}/borg-linux-glibc235-x86_64-gh
-
 borgmatic_uv_version: 0.13.9
 borgmatic_uv_url: https://github.com/astral-sh/uv/releases/download/{{ borgmatic_uv_version }}/uv-x86_64-unknown-linux-gnu.tar.gz
-
 borgmatic_version: 2.2.0
 
 borgmatic_source_directories:
@@ -18,15 +16,16 @@ borgmatic_source_directories:
   - /var
 borgmatic_repositories: []
 borgmatic_exclude_patterns:
-  - '/var/cache'
-  - '/var/tmp'
-  - '/var/run'
-  - '/var/lock'
+  - /var/cache
+  - /var/lock
+  - /var/run
+  - /var/tmp
 borgmatic_exclude_caches: true
 borgmatic_encryption_passphrase: ""
-borgmatic_keep_daily: 7
-borgmatic_keep_weekly: 4
-borgmatic_keep_monthly: 12
+borgmatic_keep:
+  daily: 7
+  weekly: 4
+  monthly: 12
 borgmatic_checks:
   - name: repository
     frequency: 2 weeks

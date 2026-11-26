@@ -12,10 +12,12 @@ exclude_patterns:
 exclude_caches: {{ borgmatic_exclude_caches | bool }}
 
 encryption_passphrase: {{ borgmatic_encryption_passphrase | to_json }}
+{% if borgmatic_keep is defined and borgmatic_keep %}
 
-keep_daily: {{ borgmatic_keep_daily }}
-keep_weekly: {{ borgmatic_keep_weekly }}
-keep_monthly: {{ borgmatic_keep_monthly }}
+{% for key, value in borgmatic_keep.items() %}
+keep_{{ key }}: {{ value }}
+{% endfor %}
+{% endif %}
 
 checks:
   {{ borgmatic_checks | to_nice_yaml(sort_keys=false,indent=2) | indent(2) | trim }}
