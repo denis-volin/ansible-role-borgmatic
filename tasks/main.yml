@@ -1,0 +1,68 @@
+---
+# tasks file for borgmatic
+- name: Install borg
+  ansible.builtin.get_url:
+    url: "{{ borgmatic_borg_url }}"
+    dest: /usr/local/bin/borg
+    owner: root
+    group: root
+    mode: "0755"
+  tags: install
+
+- name: Install uv and uvx
+  ansible.builtin.unarchive:
+    src: "{{ borgmatic_uv_url }}"
+    dest: /usr/local/bin
+    remote_src: true
+    extra_opts:
+      - --strip-components=1
+      - --wildcards
+      - "*/uv"
+      - "*/uvx"
+    creates: /usr/local/bin/uv
+  tags: install
+
+- name: Install borgmatic
+  ansible.builtin.command:
+    cmd: /usr/local/bin/uv tool install borgmatic=={{ borgmatic_version }}
+    creates: /usr/local/bin/borgmatic
+  environment:
+    UV_TOOL_DIR: /usr/local/share/uv/tools
+    UV_TOOL_BIN_DIR: /usr/local/bin
+  tags: install
+
+- name: Create borgmatic config dir
+  ansible.builtin.file:
+    path: /etc/borgmatic
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  tags: config
+
+- name: Render borgmatic main config
+  ansible.builtin.template:
+    src: config.yaml.j2
+    dest: /etc/borgmatic/config.yaml
+    owner: root
+    group: root
+    mode: "0600"
+  tags: config
+
+- name: Render systemd service and timer
+  ansible.builtin.template:
+    src: borgmatic.{{ item }}.j2
+    dest: /etc/systemd/system/borgmatic.{{ item }}
+    owner: root
+    group: root
+    mode: "0644"
+  loop: [service, timer]
+  tags: systemd
+
+- name: Start and enable borgmatic timer
+  ansible.builtin.systemd:
+    name: borgmatic.timer
+    state: started
+    enabled: true
+    daemon_reload: true
+  tags: systemd

@@ -1,0 +1,22 @@
+{{ ansible_managed | comment }}
+
+source_directories:
+  {{ borgmatic_source_directories | to_nice_yaml | indent(2) | trim }}
+
+repositories:
+  {{ borgmatic_repositories | to_nice_yaml | indent(2) | trim }}
+
+exclude_patterns:
+  {{ borgmatic_exclude_patterns | to_nice_yaml | indent(2) | trim }}
+
+exclude_caches: {{ borgmatic_exclude_caches | bool }}
+
+encryption_passphrase: {{ borgmatic_encryption_passphrase }}
+
+keep_daily: {{ borgmatic_keep_daily }}
+keep_weekly: {{ borgmatic_keep_weekly }}
+keep_monthly: {{ borgmatic_keep_monthly }}
+
+checks:
+  {{ borgmatic_checks | to_nice_yaml(indent=2) | indent(2) | trim }}
+check_last: 3

@@ -1,0 +1,12 @@
+{{ ansible_managed | comment }}
+
+[Unit]
+Description=Create daily backups using borgmatic
+
+[Timer]
+OnCalendar=*-*-* {{ borgmatic_timer_hour }}:{{ borgmatic_timer_minute }}:00
+RandomizedDelaySec=15min
+Persistent=true
+
+[Install]
+WantedBy=timers.target
