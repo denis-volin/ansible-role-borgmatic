@@ -1,13 +1,13 @@
 {{ ansible_managed | comment }}
 
 source_directories:
-  {{ borgmatic_source_directories | to_nice_yaml | indent(2) | trim }}
+  {{ borgmatic_source_directories | to_nice_yaml(sort_keys=false) | indent(2) | trim }}
 
 repositories:
-  {{ borgmatic_repositories | to_nice_yaml | indent(2) | trim }}
+  {{ borgmatic_repositories | to_nice_yaml(sort_keys=false,indent=2) | indent(2) | trim }}
 
 exclude_patterns:
-  {{ borgmatic_exclude_patterns | to_nice_yaml | indent(2) | trim }}
+  {{ borgmatic_exclude_patterns | to_nice_yaml(sort_keys=false) | indent(2) | trim }}
 
 exclude_caches: {{ borgmatic_exclude_caches | bool }}
 
@@ -18,5 +18,9 @@ keep_weekly: {{ borgmatic_keep_weekly }}
 keep_monthly: {{ borgmatic_keep_monthly }}
 
 checks:
-  {{ borgmatic_checks | to_nice_yaml(indent=2) | indent(2) | trim }}
+  {{ borgmatic_checks | to_nice_yaml(sort_keys=false,indent=2) | indent(2) | trim }}
 check_last: {{ borgmatic_check_last }}
+{% if borgmatic_config_extra is defined and borgmatic_config_extra %}
+
+{{ borgmatic_config_extra | to_nice_yaml(sort_keys=false,indent=2) | trim }}
+{% endif %}

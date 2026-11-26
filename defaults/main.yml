@@ -33,6 +33,7 @@ borgmatic_checks:
   - name: archives
     frequency: 1 month
 borgmatic_check_last: 3
+borgmatic_config_extra: {}
 
 borgmatic_timer_hour: 3
 borgmatic_timer_minute: 0
