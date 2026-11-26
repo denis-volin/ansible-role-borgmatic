@@ -19,4 +19,4 @@ keep_monthly: {{ borgmatic_keep_monthly }}
 
 checks:
   {{ borgmatic_checks | to_nice_yaml(indent=2) | indent(2) | trim }}
-check_last: 3
+check_last: {{ borgmatic_check_last }}
