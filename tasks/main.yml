@@ -57,7 +57,9 @@
     group: root
     mode: "0644"
   loop: [service, timer]
-  notify: Reload systemd daemon
+  notify:
+    - Reload systemd daemon
+    - Restart systemd timer
   tags: systemd
 
 - name: Start and enable borgmatic timer
@@ -65,5 +67,5 @@
     name: borgmatic.timer
     state: started
     enabled: true
-  notify: Restart systemd timer
+  ignore_errors: "{{ ansible_check_mode }}"
   tags: systemd
