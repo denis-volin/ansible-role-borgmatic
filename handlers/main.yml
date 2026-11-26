@@ -1,2 +1,10 @@
 ---
 # handlers file for borgmatic
+- name: Reload systemd daemon
+  ansible.builtin.systemd:
+    daemon_reload: true
+
+- name: Restart systemd timer
+  ansible.builtin.systemd:
+    name: borgmatic.timer
+    state: restarted

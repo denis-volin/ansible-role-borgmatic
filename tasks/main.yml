@@ -57,6 +57,7 @@
     group: root
     mode: "0644"
   loop: [service, timer]
+  notify: Reload systemd daemon
   tags: systemd
 
 - name: Start and enable borgmatic timer
@@ -64,5 +65,5 @@
     name: borgmatic.timer
     state: started
     enabled: true
-    daemon_reload: true
+  notify: Restart systemd timer
   tags: systemd
