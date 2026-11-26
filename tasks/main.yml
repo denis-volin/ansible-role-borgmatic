@@ -54,6 +54,13 @@
   ansible.builtin.meta: flush_handlers
   tags: config
 
+- name: Initialize Borg repository with borgmatic
+  ansible.builtin.command:
+    cmd: /usr/local/bin/borgmatic -c /etc/borgmatic/config.yaml repo-create
+  changed_when: false
+  when: borgmatic_init_repo | bool
+  tags: init
+
 - name: Render systemd service and timer
   ansible.builtin.template:
     src: borgmatic.{{ item }}.j2

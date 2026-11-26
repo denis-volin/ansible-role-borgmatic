@@ -34,5 +34,7 @@ borgmatic_checks:
 borgmatic_check_last: 3
 borgmatic_config_extra: {}
 
+borgmatic_init_repo: false
+
 borgmatic_timer_hour: 3
 borgmatic_timer_minute: 0
